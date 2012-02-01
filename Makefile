@@ -4,7 +4,7 @@ YACC = bision
 CFLAGS = -gdwarf-2 -g3
 #CFLAGS = -c
 
-all: tinyc
+all: cminusc
 
-tinyc: util.c scan.c main.c
-	${CC} ${CFLAGS} -o tinyc $^
+cminusc: util.c scan.c main.c
+	${CC} ${CFLAGS} -o cminusc $^

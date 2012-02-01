@@ -15,17 +15,19 @@
 #endif
 
 /* MAXRESERVED = the number of reserved words */
-#define MAXRESERVED 8
+#define MAXRESERVED 6
 
 typedef enum {
   /* book-keeping tokens */
   ENDFILE, ERROR,
   /* reserved words */
-  IF, THEN, ELSE, END, REPEAT,UNTIL, READ, WRITE,
+  IF, ELSE, INT, RETURN, VOID, WHILE, 
   /* multicharacter tokens */
   ID, NUM,
   /* special symbols */
-  ASSIGN, EQ, LT, PLUS, MINUS, TIMES, OVER, LPAREN, RPAREN, SEMI
+  ASSIGN, EQ, NEQ, LT, LTEQ, MT, MTEQ, PLUS, MINUS, TIMES, OVER, 
+  LPAREN, RPAREN, LBRACK, RBRACK, LBRACE, RBRACE, SEMI, COMMA
+
 } TokenType;
 
 extern FILE* source; /* source code file */
