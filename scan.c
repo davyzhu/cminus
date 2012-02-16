@@ -24,6 +24,30 @@ static char lineBuf[BUFLEN]; /*holds the current line */
 static int linepos = 0; /* current position in LineBuf */
 static int bufsize = 0; /* current size of buffer string */
 
+void getbtp(BacktrackPoint* btp, TokenType token) {
+  strncpy(btp->lineBuf, lineBuf, BUFLEN);
+  btp->linepos = linepos;
+  btp->bufsize = bufsize;
+
+  btp->token = token;
+  strncpy(btp->tokenString, tokenString, MAXTOKENLEN);
+  
+  fgetpos(source, &btp->pos);
+}
+
+TokenType setbtp(BacktrackPoint* btp) {
+  strncpy(lineBuf, btp->lineBuf, BUFLEN);
+  linepos = btp->linepos;
+  bufsize = btp->bufsize;
+
+  strncpy(tokenString, btp->tokenString, MAXTOKENLEN);
+  fsetpos(source, &btp->pos);
+
+  return btp->token;
+
+}
+
+
 /* getNextChar fetches the next non-blank character 
    from lineBuf, reading in a new line if lineBuf is
    exhausted */
@@ -210,6 +234,8 @@ TokenType getToken() {
         save = FALSE;
       }
       else {
+        save = FALSE;
+        linepos--;
         state = DONE;
         currentToken = OVER;
       }
